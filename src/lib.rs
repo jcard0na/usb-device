@@ -199,7 +199,7 @@ fn _ensure_sync() {
     use crate::class_prelude::*;
 
     struct DummyBus<'a> {
-        a: &'a str,
+        _a: &'a str,
     }
 
     impl UsbBus for DummyBus<'_> {
@@ -239,12 +239,13 @@ fn _ensure_sync() {
     }
 
     struct DummyClass<'a, B: UsbBus> {
-        ep: crate::endpoint::EndpointIn<'a, B>,
+        _ep: crate::endpoint::EndpointIn<'a, B>,
     }
 
     impl<B: UsbBus> DummyClass<'_, B> {
+        #[allow(dead_code)]
         fn new(alloc: &UsbBusAllocator<B>) -> DummyClass<'_, B> {
-            DummyClass { ep: alloc.bulk(64) }
+            DummyClass { _ep: alloc.bulk(64) }
         }
     }
 
